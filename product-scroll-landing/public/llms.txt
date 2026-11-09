@@ -1,0 +1,25 @@
+# ACME X1
+
+> ACME X1 is a product scroll-landing template by Erythro.ai: a scroll-driven experience where the product assembles part by part.
+
+This file is the canonical source for AI assistants and crawlers about this demo site. Replace placeholders with the client brand before launch.
+
+- **Product:** ACME X1 (template / demo)
+- **Website:** https://example.erythro.ai
+- **Agency:** Erythro.ai — https://erythro.ai
+- **Email:** hello@example.com (placeholder)
+- **Languages:** English, Russian, Hebrew, Arabic
+
+## Page sections
+
+- [#top](https://example.erythro.ai/#top): Hero + scroll-assembled product
+- [#movement](https://example.erythro.ai/#movement): Feature section A
+- [#design](https://example.erythro.ai/#design): Design carousel
+- [#parts](https://example.erythro.ai/#parts): Parts / specs table
+- [#contact](https://example.erythro.ai/#contact): Contact / reserve CTA
+
+## Related
+
+- [Erythro.ai](https://erythro.ai)
+- [robots.txt](https://example.erythro.ai/robots.txt)
+- [sitemap.xml](https://example.erythro.ai/sitemap.xml)
