@@ -131,7 +131,12 @@ export const DICTS = {
     "ai_a2": "Eight parts in 316L steel, sapphire and gold-plated brass — about 146 g in total. Each piece is hand-assembled and tested for 14 days.",
     "ai_a3": "Price on request. Leave your details via Reserve and we will reply within one business day.",
     "ai_a4": "Use Reserve in the header — this is a demo form. In production the request goes to CRM, and the chat uses the erythro.ai consultant stack with Gemini.",
-    "ai_a0": "Thanks for your question! This is a demo chat without a model or knowledge base. The live version answers from the product KB using the erythro.ai consultant stack."
+    "ai_a0": "Thanks for your question! This is a demo chat without a model or knowledge base. The live version answers from the product KB using the erythro.ai consultant stack.",
+    "demo_h": "Thanks for exploring",
+    "demo_p": "This is a demo project. To discuss a website for your brand, get in touch with us.",
+    "demo_wa": "Chat on WhatsApp",
+    "demo_open": "Contact us",
+    "demo_msg": "Hi! I'd like to discuss a website for my brand. Reaching out after checking out the {name} demo."
   },
   ru: {
     "loading": "Загрузка",
@@ -264,7 +269,12 @@ export const DICTS = {
     "ai_a2": "Восемь деталей из стали 316L, сапфира и латуни с золочением — всего около 146 г. Каждая собирается вручную и 14 дней проверяется на точность хода.",
     "ai_a3": "Цена по запросу. Оставьте контакты через «Заказать», и мы ответим в течение рабочего дня.",
     "ai_a4": "Нажмите «Заказать» в шапке — это демо-форма. В рабочей версии заявка уйдёт в CRM, а чат подключится к Gemini как на erythro.ai.",
-    "ai_a0": "Спасибо за вопрос! Это демо-чат без модели и базы знаний. В живой версии ответы пойдут из KB часов по стеку консультанта erythro.ai."
+    "ai_a0": "Спасибо за вопрос! Это демо-чат без модели и базы знаний. В живой версии ответы пойдут из KB часов по стеку консультанта erythro.ai.",
+    "demo_h": "Спасибо за просмотр",
+    "demo_p": "Это демонстрационный проект. Чтобы обсудить сайт для вашего бренда, свяжитесь с нами.",
+    "demo_wa": "Написать в WhatsApp",
+    "demo_open": "Связаться с нами",
+    "demo_msg": "Здравствуйте! Хочу обсудить сайт для своего бренда. Пишу после просмотра демо {name}."
   },
   he: {
     "loading": "בטעינה...‏",
@@ -397,7 +407,12 @@ export const DICTS = {
     "ai_a2": "שמונה חלקים מפלדת 316L, ספיר ופליז מצופה זהב — כ־146 ג׳ סה״כ. כל יחידה מורכבת ידנית ונבדקת 14 יום.",
     "ai_a3": "המחיר לפי בקשה. השאירו פרטים דרך «הזמנה» ונחזור תוך יום עסקים.",
     "ai_a4": "לחצו על «הזמנה» בכותרת — זה טופס הדגמה. בגרסה חיה הפנייה תגיע ל־CRM והצ׳אט יעבוד על סטאק היועץ של erythro.ai עם Gemini.",
-    "ai_a0": "תודה על השאלה! זהו צ׳אט הדגמה ללא מודל או בסיס ידע. בגרסה החיה התשובות יגיעו מ־KB של השעון לפי סטאק היועץ של erythro.ai."
+    "ai_a0": "תודה על השאלה! זהו צ׳אט הדגמה ללא מודל או בסיס ידע. בגרסה החיה התשובות יגיעו מ־KB של השעון לפי סטאק היועץ של erythro.ai.",
+    "demo_h": "תודה שצפיתם",
+    "demo_p": "זהו פרויקט דמו. כדי לדבר על אתר עבור המותג שלכם, צרו איתנו קשר.‏",
+    "demo_wa": "שלחו הודעה בווטסאפ",
+    "demo_open": "צרו קשר",
+    "demo_msg": "היי! אשמח לדבר על אתר עבור המותג שלי. אני פונה בעקבות הצפייה בדמו של {name}.‏"
   },
   ar: {
     "loading": "جارٍ التحميل...‏",
@@ -530,6 +545,11 @@ export const DICTS = {
     "ai_a2": "ثماني قطع من فولاذ 316L والياقوت والنحاس المطلي بالذهب — نحو 146 غ إجمالاً. تُجمَّع يدوياً وتُختبر 14 يوماً.",
     "ai_a3": "السعر عند الطلب. اترك بياناتك عبر «اطلب» وسنرد خلال يوم عمل.",
     "ai_a4": "استخدم «اطلب» في الترويسة — نموذج تجريبي. في النسخة الحية تذهب الطلبات إلى CRM ويعمل الدردشة على مكدس مستشار erythro.ai مع Gemini.",
-    "ai_a0": "شكراً لسؤالك! هذه محادثة تجريبية بلا نموذج أو قاعدة معرفة. في النسخة الحية تأتي الإجابات من قاعدة معرفة الساعة وفق مكدس مستشار erythro.ai."
+    "ai_a0": "شكراً لسؤالك! هذه محادثة تجريبية بلا نموذج أو قاعدة معرفة. في النسخة الحية تأتي الإجابات من قاعدة معرفة الساعة وفق مكدس مستشار erythro.ai.",
+    "demo_h": "شكرًا لاهتمامكم",
+    "demo_p": "هذا مشروع تجريبي. لمناقشة إنشاء موقع إلكتروني لعلامتكم التجارية، يُرجى التواصل معنا.‏",
+    "demo_wa": "مراسلة عبر واتساب",
+    "demo_open": "تواصل معنا",
+    "demo_msg": "مرحبًا! أود مناقشة إنشاء موقع لعلامتي التجارية. أتواصل معكم بعد مشاهدة العرض التجريبي لـ {name}.‏"
   },
 } as const satisfies Record<string, Record<string, string>>;

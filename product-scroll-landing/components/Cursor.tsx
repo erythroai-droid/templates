@@ -28,6 +28,7 @@ export default function Cursor() {
       if (first) { gsap.set(node, { x: e.clientX, y: e.clientY }); first = false; }
       xTo(e.clientX); yTo(e.clientY);
       node.dataset.mode = mode(e.target as Element);
+      node.classList.toggle('dark', !!(e.target as Element)?.closest?.('.demo'));   // light variant over the dark demo card
       node.classList.add('on');
     };
     const down = () => node.classList.add('down');

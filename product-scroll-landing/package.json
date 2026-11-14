@@ -13,6 +13,7 @@
   "dependencies": {
     "@fontsource/heebo": "^5.3.0",
     "@fontsource/inter": "^5.3.0",
+    "@vercel/analytics": "^1.6.1",
     "@vercel/speed-insights": "^2.1.0",
     "gsap": "^3.15.0",
     "next": "^15.5.28",

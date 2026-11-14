@@ -17,6 +17,7 @@ import '@fontsource/heebo/hebrew-300.css';
 import '@fontsource/heebo/hebrew-400.css';
 import '@fontsource/heebo/hebrew-500.css';
 import '@fontsource/heebo/hebrew-600.css';
+import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import { I18nProvider } from '@/lib/i18n';
@@ -50,6 +51,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <I18nProvider>{children}</I18nProvider>
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );

@@ -55,6 +55,16 @@ Arabic faces live in `app/fonts/` (TrueArabic). Latin/Cyrillic/Hebrew via fontso
    - Type `CNAME`, Name `<slug>`, Target from Vercel domain config (`*.vercel-dns-016.com`)
    - Proxy **off** (DNS only)
 5. Vercel → Project → Domains → add `<slug>.erythro.ai`
+6. Vercel → Project → **Analytics → Enable** (Web Analytics; custom events need Pro).
+
+## 5a. Demo notice (WhatsApp)
+
+Every demo build ships a "Thanks for exploring → Chat on WhatsApp" card (`components/DemoNotice.tsx`, `lib/demo.ts`, `.demo*` in `globals.css`). It opens once per visit when the footer comes into view, after ~40 s, or on desktop exit intent, and folds into a pulsing WhatsApp button after closing.
+
+- The phone number lives only in the `wa.me` link (`DEMO.phone` in `lib/demo.ts`); it is never shown on the page.
+- The prefilled message (`demo_msg` in `i18n/*.txt`) contains `{name}`, filled with `BRAND MODEL` from `lib/site.ts` — no per-project edit needed.
+- Click stats go to Vercel Web Analytics → Events: `demo_notice_shown`, `demo_notice_closed`, `demo_notice_reopened`, `demo_whatsapp_click`. In `npm run dev` they only log `[Vercel Web Analytics] [event] …` to the console.
+- **Client handover / production:** set `NEXT_PUBLIC_DEMO_NOTICE=0` in Vercel → Environment Variables and redeploy. Don't remove the code.
 
 ## 6. Launch smoke
 
@@ -64,6 +74,7 @@ Arabic faces live in `app/fonts/` (TrueArabic). Latin/Cyrillic/Hebrew via fontso
 - [ ] Language switch EN/RU/HE/AR + RTL
 - [ ] Design tabs have accessible names; no transparent content blocks
 - [ ] Speed Insights receives events after a real visit
+- [ ] Demo notice opens at the footer, folds into the pulsing WhatsApp button, `wa.me` text names the project; events show in Analytics → Events (or `NEXT_PUBLIC_DEMO_NOTICE=0` set for a client's production build)
 - [ ] PageSpeed mobile: Performance ≥90, a11y issues from dots/contrast gone
 
 ## Pitfalls
