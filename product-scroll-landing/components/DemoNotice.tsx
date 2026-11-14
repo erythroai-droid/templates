@@ -10,7 +10,7 @@ const KEY = 'demo-notice';
 /**
  * Demo notice: a card ("thanks for viewing, contact us") that opens once per visit —
  * when the footer comes into view, after DEMO.delayMs, or when the mouse heads for the tab bar —
- * and after closing folds into a round WhatsApp button.
+ * and after closing folds into a round WhatsApp button. On a reload in the same visit it opens again right away.
  */
 export default function DemoNotice() {
   const { t, lang } = useI18n();
@@ -20,7 +20,7 @@ export default function DemoNotice() {
   const openedBy = useRef('');
 
   const go = useCallback((s: State) => { stateRef.current = s; setState(s); }, []);
-  const open = useCallback((trigger: 'footer' | 'timer' | 'exit') => {
+  const open = useCallback((trigger: 'footer' | 'timer' | 'exit' | 'reload') => {
     if (stateRef.current !== 'hidden') return;
     go('open');
     openedBy.current = trigger;
@@ -42,7 +42,12 @@ export default function DemoNotice() {
     if (!DEMO.enabled) return;
     let seen = false;
     try { seen = sessionStorage.getItem(KEY) === '1'; } catch { /* storage unavailable */ }
-    if (seen) { go('mini'); return; }
+    // already shown this visit (reload, Ctrl+F5): open the card again rather than a bare WhatsApp button,
+    // so the message itself is always seen; it collapses only when the visitor closes it
+    if (seen) {
+      const again = window.setTimeout(() => open('reload'), 1200);
+      return () => clearTimeout(again);
+    }
 
     const timer = window.setTimeout(() => open('timer'), DEMO.delayMs);
 

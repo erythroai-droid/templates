@@ -59,11 +59,11 @@ Arabic faces live in `app/fonts/` (TrueArabic). Latin/Cyrillic/Hebrew via fontso
 
 ## 5a. Demo notice (WhatsApp)
 
-Every demo build ships a "Thanks for exploring → Chat on WhatsApp" card (`components/DemoNotice.tsx`, `lib/demo.ts`, `.demo*` in `globals.css`). It opens once per visit when the footer comes into view, after ~40 s, or on desktop exit intent, and folds into a pulsing WhatsApp button after closing.
+Every demo build ships a "Thanks for exploring → Chat on WhatsApp" card (`components/DemoNotice.tsx`, `lib/demo.ts`, `.demo*` in `globals.css`). It opens once per visit when the footer comes into view, after ~40 s, or on desktop exit intent, and folds into a pulsing WhatsApp button after closing. On a reload in the same visit the card opens expanded again (~1.2 s) — visitors always see the text, never just a bare button.
 
 - The phone number lives only in the `wa.me` link (`DEMO.phone` in `lib/demo.ts`); it is never shown on the page.
 - The prefilled message (`demo_msg` in `i18n/*.txt`) contains `{name}`, filled with `BRAND MODEL` from `lib/site.ts` — no per-project edit needed.
-- Click stats go to Vercel Web Analytics → Events: `demo_notice_shown`, `demo_notice_closed`, `demo_notice_reopened`, `demo_whatsapp_click`. In `npm run dev` they only log `[Vercel Web Analytics] [event] …` to the console.
+- Click stats go to Vercel Web Analytics → Events: `demo_notice_shown` (`trigger`: footer | timer | exit | reload), `demo_notice_closed`, `demo_notice_reopened`, `demo_whatsapp_click`. In `npm run dev` they only log `[Vercel Web Analytics] [event] …` to the console.
 - **Client handover / production:** set `NEXT_PUBLIC_DEMO_NOTICE=0` in Vercel → Environment Variables and redeploy. Don't remove the code.
 
 ## 6. Launch smoke

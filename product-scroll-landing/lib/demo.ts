@@ -12,7 +12,7 @@ export const DEMO = {
 
 /**
  * Funnel events in Vercel Web Analytics (Analytics → Events):
- *   demo_notice_shown { trigger: footer | timer | exit }
+ *   demo_notice_shown { trigger: footer | timer | exit | reload }
  *   demo_notice_closed { via: close | esc | swipe }
  *   demo_notice_reopened {}            — clicked the collapsed WhatsApp button
  *   demo_whatsapp_click { opened_by, lang } — the conversion
