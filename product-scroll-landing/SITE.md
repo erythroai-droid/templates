@@ -17,6 +17,11 @@ Typical time from clone to an ad-ready URL: 3–5 hours, most of it media.
 | Sharing | Canonical, Open Graph, Twitter card, generated 1200×630 preview | `app/layout.tsx`, `app/opengraph-image.tsx` |
 | Agents / SEO | `robots.txt`, `llms.txt`, `sitemap.xml` | `public/`, `app/sitemap.ts` |
 | Ad footage | Headless scroll recording (desktop or phone) → .webm | `npm run record-demo` |
+| Pre-deploy check | Compares the project with the template and this checklist; blocks `git push` on errors | `npm run preflight`, `.githooks/pre-push` |
+
+> **Rule: no deploy without a green preflight.** `npm run preflight` must end with no ✖ before the first push to Vercel
+> and before every production push. `new-site` turns on the pre-push hook, so a push with ✖ is refused.
+> Every ⚠ is either fixed or consciously accepted. Details: §9.
 
 ## 1. Scaffold
 
@@ -111,7 +116,32 @@ GA4 and the Pixel default to the Erythro property/pixel; a client gets their own
 - `LEAD_WEBHOOK_URL` → the client's CRM / n8n; update `DEMO.phone` if the WhatsApp fallback should reach the client.
 - Custom domain → `NEXT_PUBLIC_SITE_URL` + `SITE_URL`.
 
-## 9. Launch smoke
+## 9. Preflight — сверка с шаблоном перед деплоем
+
+```bash
+npm run preflight -- --build                               # before the first push: full check + production build
+npm run preflight -- --url https://<preview>.vercel.app    # after the preview deploy: same + live checks
+npm run preflight -- --report                              # also saves preflight-report.md (attach to the handover)
+```
+
+The template is taken from GitHub (`main`); `--template <dir>` or `TEMPLATE_DIR` compares with a local copy.
+Result: **✖** = deploy blocked (exit 1, pre-push hook refuses), **⚠** = fix or accept on purpose, **·** = manual step.
+
+| Section | What it catches |
+|---|---|
+| 1. Project | slug / brand / `SITE_URL` still `product-scroll-landing` / `ACME X1` / `example.erythro.ai` |
+| 2. Media | `STUB_MEDIA`, frame count ≠ `FRAMES` in each size, `PARTS` / `STAGES` / `DESIGN_SLIDES` out of range or ORA timing left in, missing phone hero clip or > 2.5 MB, code pointing at files that don't exist, OG `.jpg` + `.tsx` conflict |
+| 3. Git | media ignored or not committed, `Video/` / `public/video` in `.gitignore`, files > 20 MB in git, uncommitted changes |
+| 4. Texts | missing keys per language, stale `lib/dict.ts`, `ACME` / `hello@example.com` / `Model demo` left in copy |
+| 5. SEO | robots / llms / sitemap / canonical / OG point at this site; template title or llms.txt |
+| 6. Conversion | WhatsApp number, DemoNotice, form → `/api/lead`, `adSource`, Analytics + Speed Insights + GA4 + Pixel in the layout |
+| 7. Template | files, npm deps/scripts and i18n keys the template has and the project lacks (= features added to the template after the clone); copy still identical to the template; template favicon; infrastructure files that drifted from the template |
+| 8. Code | `tsc --noEmit`, or `npm run build` with `--build` |
+| 9. Live (`--url`) | `/`, robots, llms, sitemap, OG image, icon, every media file the page uses, GA4 + Pixel in the HTML, canonical = `SITE_URL`, `/api/lead` wired (400) or not (503) |
+
+A ⚠ on drifted infrastructure files means either the template moved on (pull the change into the project) or the project improved it (port the improvement to the template — then every next site gets it).
+
+Then the manual part the script prints (Vercel env, DNS, a real lead in Telegram, a real phone, GA4 key event, PageSpeed):
 
 - [ ] `npm run build` green locally
 - [ ] Desktop: hero + assembly scrub; phone: hero clip plays once and stays on the assembled product, intro text, part stills
