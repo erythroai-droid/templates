@@ -15,7 +15,7 @@ Typical time from clone to an ad-ready URL: 3–5 hours, most of it media.
 | Order form | Real POST → `/api/lead` → webhook (n8n → Telegram); honeypot; on failure offers WhatsApp | `components/Header.tsx`, `app/api/lead/route.ts`, `scripts/deploy-n8n-lead.py` |
 | Analytics | Vercel Web Analytics + Speed Insights, GA4 (scroll 25/50/75, visible time 15–300 s, `generate_lead`), Meta Pixel (PageView, Contact, Lead) | `app/layout.tsx`, `lib/ga.ts`, `lib/metaPixel.ts` |
 | Sharing | Canonical, Open Graph, Twitter card, generated 1200×630 preview | `app/layout.tsx`, `app/opengraph-image.tsx` |
-| Agents / SEO | `robots.txt`, `llms.txt`, `sitemap.xml` | `public/`, `app/sitemap.ts` |
+| Agents / SEO | `robots.txt`, `llms.txt`, `sitemap.xml`; AI search visibility skill (bots / WAF / citation copy) | `public/`, `app/sitemap.ts`; `.agents|.cursor|.claude|.grok/skills/ai-search-visibility/SKILL.md` (+ `AGENTS.md` / `GEMINI.md` / `CLAUDE.md`) |
 | Ad footage | Headless scroll recording (desktop or phone) → .webm | `npm run record-demo` |
 | Pre-deploy check | Compares the project with the template and this checklist and lists recommendations; runs only when you call it | `npm run preflight` |
 

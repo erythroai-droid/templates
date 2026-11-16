@@ -1,4 +1,11 @@
 .DS_Store
 Thumbs.db
 *.log
-.claude/
+
+# Local Claude/Antigravity clutter — keep shipped skills
+.claude/*
+!.claude/skills/
+!.claude/skills/**
+ai-smart-card/.claude/*
+!ai-smart-card/.claude/skills/
+!ai-smart-card/.claude/skills/**

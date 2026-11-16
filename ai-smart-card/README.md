@@ -28,6 +28,7 @@ npm run build && npm start
 | Ad footage (.webm) | `npm run record-demo -- --mobile --lang he` |
 | **Pre-deploy check vs template** | `npm run preflight` (on demand; recommendations only, never blocks) |
 | Agent files | `public/robots.txt`, `public/llms.txt`, `app/sitemap.ts` |
+| AI search visibility skill | `.agents` / `.cursor` / `.claude` / `.grok` `skills/ai-search-visibility` (+ `docs/seo/…`, `AGENTS.md`, `GEMINI.md`, `CLAUDE.md`) — Cursor, Claude, Antigravity, Grok; load when creating/auditing the public site, robots/sitemap/WAF/SEO meta, or landing copy |
 
 Full client checklist (media, ads/UTM, events, handover, smoke test): [`SITE.md`](SITE.md).
 
@@ -38,6 +39,7 @@ Full client checklist (media, ads/UTM, events, handover, smoke test): [`SITE.md`
 - `.gitignore` uses `/Video/` (repo-root only), never bare `Video/` on Windows; web cuts in `public/video` are committed.
 - Every demo ships the WhatsApp card + ad source in the message + Vercel Analytics, GA4 and Meta Pixel.
 - Ship `/robots.txt`, `/llms.txt`, `/sitemap.xml`, OG image and `@vercel/speed-insights`.
+- For AI Overviews / Copilot / ChatGPT / Claude / Perplexity visibility, follow the bundled skill `ai-search-visibility` (search bots ≠ training bots; HTML answers first).
 
 ## Deploy
 
