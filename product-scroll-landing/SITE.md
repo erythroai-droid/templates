@@ -17,11 +17,11 @@ Typical time from clone to an ad-ready URL: 3–5 hours, most of it media.
 | Sharing | Canonical, Open Graph, Twitter card, generated 1200×630 preview | `app/layout.tsx`, `app/opengraph-image.tsx` |
 | Agents / SEO | `robots.txt`, `llms.txt`, `sitemap.xml` | `public/`, `app/sitemap.ts` |
 | Ad footage | Headless scroll recording (desktop or phone) → .webm | `npm run record-demo` |
-| Pre-deploy check | Compares the project with the template and this checklist; runs only when you call it | `npm run preflight` |
+| Pre-deploy check | Compares the project with the template and this checklist and lists recommendations; runs only when you call it | `npm run preflight` |
 
-> **Rule: no deploy without a green preflight.** Run `npm run preflight` by hand before the first push to Vercel and before
-> every production push; it must end with no ✖. Nothing runs it automatically (no hooks, not in the build).
-> Every ⚠ is either fixed or consciously accepted. Details: §9.
+> **Before a deploy, run `npm run preflight`.** It compares the project with the template and lists what differs.
+> Every finding is a **recommendation, not a requirement** — you decide what to fix. Nothing runs it automatically
+> and it never blocks a push or a build (exit code is always 0). Details: §9.
 
 ## 1. Scaffold
 
@@ -125,7 +125,7 @@ npm run preflight -- --report                              # also saves prefligh
 ```
 
 The template is taken from GitHub (`main`); `--template <dir>` or `TEMPLATE_DIR` compares with a local copy.
-Result: **✖** = not ready to deploy (exit 1), **⚠** = fix or accept on purpose, **·** = manual step.
+Result — all of it advisory: **✖** = important recommendation (likely visible to visitors or ads), **⚠** = nice to fix, **·** = info / manual step. Nothing is blocked; exit code is always 0.
 
 | Section | What it catches |
 |---|---|

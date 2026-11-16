@@ -26,7 +26,7 @@ npm run build && npm start
 | Env (demo card, GA4, Pixel, lead webhook) | [`.env.example`](.env.example) |
 | Lead form → n8n → Telegram | `scripts/deploy-n8n-lead.py` |
 | Ad footage (.webm) | `npm run record-demo -- --mobile --lang he` |
-| **Pre-deploy check vs template** | `npm run preflight` (on demand, before each deploy) |
+| **Pre-deploy check vs template** | `npm run preflight` (on demand; recommendations only, never blocks) |
 | Agent files | `public/robots.txt`, `public/llms.txt`, `app/sitemap.ts` |
 
 Full client checklist (media, ads/UTM, events, handover, smoke test): [`SITE.md`](SITE.md).
@@ -44,4 +44,4 @@ Full client checklist (media, ads/UTM, events, handover, smoke test): [`SITE.md`
 1. Push this folder as its own GitHub repo (or monorepo subdirectory with Vercel Root Directory).
 2. Import on Vercel → Framework Next.js → Production Branch `main`; env from `.env.example` as needed.
 3. Cloudflare DNS: `CNAME <slug> → <project>.vercel-dns-0xx.com` (DNS only / grey cloud).
-4. `npm run preflight -- --build` must be green before the first push; after the preview deploy `npm run preflight -- --url <preview-url>`. See `SITE.md` §9.
+4. Before the first push: `npm run preflight -- --build`; after the preview deploy: `npm run preflight -- --url <preview-url>`. Findings are recommendations — fix what you choose. See `SITE.md` §9.

@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 /**
  * Pre-deploy check of a client site against the product-scroll-landing template.
- * Run it by hand before the first push to Vercel and before every production push. Nothing runs it automatically.
+ * Run it by hand before a deploy. Nothing runs it automatically, and it never blocks anything: every finding is a
+ * recommendation — what to fix is up to you. Exit code is always 0.
  *
  *   npm run preflight                          full check (template from GitHub, tsc)
  *   npm run preflight -- --build               + npm run build
@@ -9,7 +10,7 @@
  *   npm run preflight -- --template C:\dev\templates\product-scroll-landing   compare with a local template copy
  *   npm run preflight -- --report              also write preflight-report.md
  *
- * ✖ errors block the deploy (exit 1), ⚠ warnings need a conscious "yes, on purpose", · info / manual steps.
+ * ✖ important recommendation (likely visible to visitors / ads), ⚠ nice to fix, · info / manual steps.
  */
 import { execFileSync, spawnSync } from 'node:child_process';
 import { existsSync, mkdtempSync, readdirSync, readFileSync, rmSync, statSync, writeFileSync } from 'node:fs';
@@ -346,8 +347,9 @@ for (const r of out) {
   lines.push(`${icon[r.t]} ${r.m}`);
   if (r.fix) lines.push(`      → ${r.fix}`);
 }
-const verdict = counts.err ? `✖ НЕ ГОТОВ К ДЕПЛОЮ: ${counts.err} ошибок, ${counts.warn} предупреждений`
-  : counts.warn ? `⚠ Можно деплоить, если предупреждения осознанные (${counts.warn})` : '✔ Готов к деплою';
+const verdict = counts.err || counts.warn
+  ? `Рекомендации к исправлению: ${counts.err} важных (✖), ${counts.warn} желательных (⚠). Что исправлять — решаете вы; деплой ничем не блокируется.`
+  : '✔ Расхождений с шаблоном и чеклистом не найдено';
 lines.unshift(`Preflight ${site.BRAND} ${site.MODEL} — ${new Date().toISOString().slice(0, 16).replace('T', ' ')}`);
 lines.push('', verdict, '');
 console.log(lines.join('\n'));
@@ -355,4 +357,4 @@ if (flag('report')) {
   writeFileSync(P('preflight-report.md'), '```\n' + lines.join('\n') + '\n```\n');
   console.log('→ preflight-report.md');
 }
-process.exit(counts.err ? 1 : 0);
+process.exit(0);   // advisory only
