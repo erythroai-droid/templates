@@ -142,7 +142,10 @@ export const DICTS = {
     "demo_p": "This is a demo project. To discuss a website for your brand, get in touch with us.",
     "demo_wa": "Chat on WhatsApp",
     "demo_open": "Contact us",
-    "demo_msg": "Hi! I'd like to discuss a website for my brand. Reaching out after checking out the {name} demo."
+    "demo_msg": "Hi! I saw the {name} demo and I'd love a site like this for my business.",
+    "demo_strip": "Demo · Erythro.ai",
+    "demo_cta": "I want a site like this",
+    "demo_more": "View more work"
   },
   ru: {
     "loading": "Загрузка",
@@ -286,7 +289,10 @@ export const DICTS = {
     "demo_p": "Это демонстрационный проект. Чтобы обсудить сайт для вашего бренда, свяжитесь с нами.",
     "demo_wa": "Написать в WhatsApp",
     "demo_open": "Связаться с нами",
-    "demo_msg": "Здравствуйте! Хочу обсудить сайт для своего бренда. Пишу после просмотра демо {name}."
+    "demo_msg": "Здравствуйте! Увидел демо {name} — хочу такой же сайт для своего бизнеса.",
+    "demo_strip": "Демо · Erythro.ai",
+    "demo_cta": "Хочу такой сайт",
+    "demo_more": "Смотреть другие работы"
   },
   he: {
     "loading": "בטעינה...‏",
@@ -430,7 +436,10 @@ export const DICTS = {
     "demo_p": "זהו פרויקט דמו. כדי לדבר על אתר עבור המותג שלכם, צרו איתנו קשר.‏",
     "demo_wa": "שלחו הודעה בווטסאפ",
     "demo_open": "צרו קשר",
-    "demo_msg": "היי! אשמח לדבר על אתר עבור המותג שלי. אני פונה בעקבות הצפייה בדמו של {name}.‏"
+    "demo_msg": "היי! ראיתי את הדמו של {name} — אשמח לאתר כזה עבור העסק שלי.‏",
+    "demo_strip": "דמו · Erythro.ai",
+    "demo_cta": "רוצה אתר כזה",
+    "demo_more": "לצפייה בעבודות נוספות"
   },
   ar: {
     "loading": "جارٍ التحميل...‏",
@@ -574,6 +583,9 @@ export const DICTS = {
     "demo_p": "هذا مشروع تجريبي. لمناقشة إنشاء موقع إلكتروني لعلامتكم التجارية، يُرجى التواصل معنا.‏",
     "demo_wa": "مراسلة عبر واتساب",
     "demo_open": "تواصل معنا",
-    "demo_msg": "مرحبًا! أود مناقشة إنشاء موقع لعلامتي التجارية. أتواصل معكم بعد مشاهدة العرض التجريبي لـ {name}.‏"
+    "demo_msg": "مرحباً! شاهدت العرض التجريبي لـ {name} — وأريد موقعاً مماثلاً لنشاطي التجاري.‏",
+    "demo_strip": "عرض تجريبي · Erythro.ai",
+    "demo_cta": "أريد موقعاً كهذا",
+    "demo_more": "عرض المزيد من الأعمال"
   },
 } as const satisfies Record<string, Record<string, string>>;

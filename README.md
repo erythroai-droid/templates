@@ -5,6 +5,7 @@ Reusable site starters for fast client deploys. Each folder is a self-contained 
 | Template | Use when |
 |---|---|
 | [**AI Smart Card**](./ai-smart-card) (`ai-smart-card`) | Scroll-assembled product landing (ORA 60A pattern): GSAP pin/scrub frames, phone hero clip, i18n EN/RU/HE/AR + RTL, WhatsApp demo card with ad-source tagging, lead form → n8n, Vercel Analytics + GA4 + Meta Pixel, OG cards, Vercel + `*.erythro.ai` |
+| [**Scroll Film**](./scroll-film) (`scroll-film`) | Film-behind-the-page landing (EMBER pattern): a fixed WebP frame film scrubbed by the scroll with scenes scrolling over it, autoplay intro, desktop scroll magnet, photo table gallery, optional footer loop; studio frame for ad traffic (demo strip + portfolio link + WhatsApp CTA), first-seconds metrics (`EngagedVisit` for Meta), i18n EN/RU/HE/AR + RTL |
 
 ## Start a new site from a template
 

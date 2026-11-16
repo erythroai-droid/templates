@@ -1,0 +1,20 @@
+node_modules/
+.next/
+.next-build/
+*.tsbuildinfo
+.env*.local
+
+# master videos stay local. Light web cuts in public/video (loops, hero-assembly-m.mp4, footer cuts) ARE committed —
+# Vercel serves only what is in git, a missing mp4 = blank hero on phones.
+*.mov
+*.mkv
+/Video/
+/recordings/
+
+# client photo originals stay local: web WebP cuts live in public/gallery
+/Foto/
+
+# local Claude settings (launch config etc.) — keep the shipped skills
+.claude/*
+!.claude/skills/
+!.claude/skills/**

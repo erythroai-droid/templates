@@ -1,0 +1,24 @@
+# ACME Grill
+
+> ACME Grill — a scroll-film landing by Erythro.ai: a film plays behind the page as you scroll, the sections scroll over it.
+
+- **Name:** ACME Grill
+- **Website:** https://example.erythro.ai
+- **Agency:** Erythro.ai — https://erythro.ai
+- **Languages:** English, Russian, Hebrew, Arabic
+
+## Page sections
+
+- [#top](https://example.erythro.ai/#top): Hero
+- [#craft](https://example.erythro.ai/#craft): Scene 2
+- [#cuts](https://example.erythro.ai/#cuts): Scene 3 (menu / offer list)
+- [#feast](https://example.erythro.ai/#feast): Scene 4
+- [#experience](https://example.erythro.ai/#experience): Finale
+- [#gallery](https://example.erythro.ai/#gallery): Photo gallery
+- [#contact](https://example.erythro.ai/#contact): Contacts and booking
+
+## Related
+
+- [Erythro.ai](https://erythro.ai)
+- [robots.txt](https://example.erythro.ai/robots.txt)
+- [sitemap.xml](https://example.erythro.ai/sitemap.xml)

@@ -5,7 +5,8 @@ import Preloader from '@/components/Preloader';
 import Cursor from '@/components/Cursor';
 import ScrollTop from '@/components/ScrollTop';
 import AiChat from '@/components/AiChat';
-import DemoNotice from '@/components/DemoNotice';
+import StudioBar from '@/components/StudioBar';
+import Metrics from '@/components/Metrics';
 import Assembly from '@/components/Assembly';
 import { Design, Footer, Marquee, Movement, PartsTable, useLateRefresh } from '@/components/Sections';
 import { SmoothScroll, initMagnet, registerZone, ScrollTrigger, useScrollReady, useStaticMode } from '@/lib/scroll';
@@ -21,7 +22,8 @@ export default function Page() {
       <Header />
       <ScrollTop />
       <AiChat />
-      <DemoNotice />
+      <Metrics />
+      <StudioBar />
       <Cursor />
       <SmoothScroll><Content onLoadProgress={(v) => setPct((p) => Math.max(p, v))} /></SmoothScroll>
     </>
