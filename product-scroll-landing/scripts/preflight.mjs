@@ -246,7 +246,7 @@ else {
   const allowedMissing = /^app\/(opengraph|twitter)-image\.tsx$/;
   const missCode = missing.filter((f) => /\.(tsx?|mjs|py|css)$/.test(f) && !(og && allowedMissing.test(f)));
   const missOther = missing.filter((f) => !missCode.includes(f) && !(og && allowedMissing.test(f)));
-  if (missCode.length) err(`нет файлов из шаблона: ${missCode.join(', ')}`, `скопировать из ${tpl.dir}`);
+  if (missCode.length) err(`нет файлов из шаблона: ${missCode.join(', ')}`, tpl.cleanup ? `npx degit erythroai-droid/templates/product-scroll-landing/<file> <file>  (или --template <локальная копия>)` : `скопировать из ${tpl.dir}`);
   if (missOther.length) warn(`нет файлов из шаблона: ${missOther.join(', ')}`);
   if (!missing.length || (!missCode.length && !missOther.length)) ok(`все ${tFiles.length} файлов шаблона на месте`);
 
