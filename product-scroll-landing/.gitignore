@@ -2,8 +2,11 @@ node_modules/
 .next/
 .next-build/
 *.tsbuildinfo
+.env*.local
 
-# large client media (generate frames locally; keep stub webp in git)
-public/video/*
-!public/video/.gitkeep
+# master videos stay local. Light web cuts in public/video (loops, hero-assembly-m.mp4, footer cuts) ARE committed —
+# Vercel serves only what is in git, a missing mp4 = blank hero on phones.
+*.mov
+*.mkv
 /Video/
+/recordings/

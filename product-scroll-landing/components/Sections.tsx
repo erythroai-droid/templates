@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import { useEffect, useRef, useState } from 'react';
 import Reveal from './Reveal';
 import CountUp from './CountUp';
@@ -148,7 +148,8 @@ export function Design() {
 
         <Reveal delay={180} from="clip" className="ds-stage-wrap">
           <div className="ds-stage" ref={track} data-cursor="link">
-            <div className="ds-track" dir="ltr" style={{ transform: `translateX(calc(${-i} * 100% + var(--drag, 0px)))` }}>
+            {/* the track follows the page direction, so the slide under the finger is the one the swipe lands on (rtl: next comes from the left) */}
+            <div className="ds-track" dir={dir} style={{ transform: `translateX(calc(${dir === 'rtl' ? i : -i} * 100% + var(--drag, 0px)))` }}>
               {DESIGN_SLIDES.map((s) => (
                 <article key={s.n} className={`ds-slide ${s.n - 1 === i ? 'on' : ''}`} aria-hidden={s.n - 1 !== i}>
                   <div className="ds-slide-img">

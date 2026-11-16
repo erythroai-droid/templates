@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import { useI18n } from '@/lib/i18n';
 import { BRAND, MODEL, SHOWCASE } from '@/lib/site';
 

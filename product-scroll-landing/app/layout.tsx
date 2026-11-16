@@ -21,6 +21,9 @@ import { Analytics } from '@vercel/analytics/next';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import { I18nProvider } from '@/lib/i18n';
+import { BRAND, DESCRIPTION, MODEL, SITE_URL, TITLE } from '@/lib/site';
+import { MetaPixel } from '@/components/MetaPixel';
+import { GoogleAnalytics } from '@/components/GoogleAnalytics';
 
 // Arabic (+ paired Latin): True Arabic
 const trueArabic = localFont({
@@ -35,9 +38,22 @@ const trueArabic = localFont({
   preload: false,
 });
 
+// og/twitter images: app/opengraph-image.tsx + app/twitter-image.tsx (generated brand card). For a real client,
+// drop a 1200x630 app/opengraph-image.jpg + twitter-image.jpg (+ .alt.txt) and delete the two .tsx files.
 export const metadata: Metadata = {
-  title: 'ACME X1 — product scroll landing',
-  description: 'Scroll-driven product landing: the product assembles itself part by part as you scroll.',
+  metadataBase: new URL(SITE_URL),
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: '/' },
+  openGraph: {
+    type: 'website',
+    url: '/',
+    siteName: `${BRAND} ${MODEL}`,
+    title: TITLE,
+    description: DESCRIPTION,
+    locale: 'en_US',
+  },
+  twitter: { card: 'summary_large_image', title: TITLE, description: DESCRIPTION },
 };
 export const viewport: Viewport = { themeColor: '#ebebeb', width: 'device-width', initialScale: 1 };
 
@@ -52,6 +68,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <I18nProvider>{children}</I18nProvider>
         <SpeedInsights />
         <Analytics />
+        <MetaPixel />
+        <GoogleAnalytics />
       </body>
     </html>
   );

@@ -6,19 +6,21 @@ type Src = { src: string; type?: string };
 
 /**
  * Full-bleed muted looping video behind a content section.
- * Plays only while the host is near the viewport; pauses off-screen and under reduced motion / static mode.
+ * Plays only while the host is near the viewport; pauses off-screen and under reduced motion.
+ * Static mode (phones) drops the layer, unless `staticSrc` gives a light mobile cut to play instead.
  */
-export default function VideoBg({ src, sources, className = '' }: { src?: string; sources?: Src[]; className?: string }) {
+export default function VideoBg({ src, sources, staticSrc, className = '' }: { src?: string; sources?: Src[]; staticSrc?: string; className?: string }) {
   const staticMode = useStaticMode();
+  const mobile = staticMode && !!staticSrc && !prefersReducedMotion();
   const wrap = useRef<HTMLDivElement>(null);
   const video = useRef<HTMLVideoElement>(null);
-  const list = sources ?? (src ? [{ src }] : []);
+  const list = mobile ? [{ src: staticSrc! }] : sources ?? (src ? [{ src }] : []);
 
   useEffect(() => {
     const node = video.current;
     const host = wrap.current?.parentElement;
     if (!node || !host || !list.length) return;
-    if (staticMode || prefersReducedMotion()) {
+    if ((staticMode && !mobile) || prefersReducedMotion()) {
       node.removeAttribute('src');
       node.load();
       return;
@@ -41,13 +43,14 @@ export default function VideoBg({ src, sources, className = '' }: { src?: string
     document.addEventListener('visibilitychange', onVis);
 
     return () => { io.disconnect(); document.removeEventListener('visibilitychange', onVis); pause(); };
-  }, [staticMode, list.length]);
+  }, [staticMode, mobile, list.length]);
 
-  if (!list.length || staticMode) return null;
+  if (!list.length || (staticMode && !mobile)) return null;
 
   return (
-    <div ref={wrap} className={`vbg ${className}`} aria-hidden>
+    <div ref={wrap} className={mobile ? 'vbg vbg-m' : `vbg ${className}`} aria-hidden>
       <video
+        key={list[0].src}
         ref={video}
         className="vbg-video"
         muted

@@ -12,6 +12,22 @@ export const FRAME_DIR = '/frames/assembly';
 export const BRAND = 'ACME';
 export const MODEL = 'X1';
 
+/** Production URL: canonical, Open Graph, sitemap. NEXT_PUBLIC_SITE_URL overrides it per Vercel environment. */
+export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://example.erythro.ai').replace(/\/$/, '');
+
+/** Page title / description (also the Open Graph + Twitter card text). */
+export const TITLE = `${BRAND} ${MODEL} — product scroll landing`;
+export const DESCRIPTION = `Scroll-driven ${BRAND} ${MODEL} landing: the product assembles itself part by part as you scroll.`;
+
+/**
+ * Phones/tablets (static layout): portrait assembly clip that plays once in the hero (~9 s, 720x980, H.264, no audio,
+ * 1.5–2.5 MB) + its first frame as poster + its last frame as the still for reduced motion / Data Saver.
+ * Cut it from the master video — SITE.md → "Mobile media". null = the last assembly frame is used instead.
+ */
+export const MOBILE_HERO: { src: string; poster: string; end: string } | null = STUB_MEDIA
+  ? null
+  : { src: '/video/hero-assembly-m.mp4', poster: '/video/hero-assembly-m-poster.webp', end: '/video/hero-assembly-m-end.webp' };
+
 /**
  * Parts in the order the assembly video introduces them.
  * f: frame range (0-based). g: weight (placeholder). w: optional scroll weight.

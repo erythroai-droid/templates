@@ -4,7 +4,7 @@ Reusable site starters for fast client deploys. Each folder is a self-contained 
 
 | Template | Use when |
 |---|---|
-| [`product-scroll-landing`](./product-scroll-landing) | Scroll-assembled product landing (ORA 60A pattern): GSAP pin/scrub frames, i18n EN/RU/HE/AR, Vercel + `*.erythro.ai` |
+| [`product-scroll-landing`](./product-scroll-landing) | Scroll-assembled product landing (ORA 60A pattern): GSAP pin/scrub frames, phone hero clip, i18n EN/RU/HE/AR + RTL, WhatsApp demo card with ad-source tagging, lead form → n8n, Vercel Analytics + GA4 + Meta Pixel, OG cards, Vercel + `*.erythro.ai` |
 
 ## Start a new site from a template
 

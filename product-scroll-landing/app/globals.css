@@ -202,7 +202,6 @@ html.has-cursor :is(input,textarea){cursor:text!important}
 .has-vbg > :not(.vbg){position:relative;z-index:1}
 /* keep opaque panel under the video layer — if mp4 404s, blocks must not go see-through */
 .has-vbg.rise{background:var(--panel)}
-html.static .vbg{display:none}
 
 /* ---------- 01 movement ---------- */
 .tb{position:relative;background:
@@ -335,6 +334,9 @@ html.static .rv{opacity:1;visibility:visible;clip-path:none;transform:none}
 .form label{display:block;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--mute);margin-block-end:18px}
 .form input,.form textarea{display:block;width:100%;margin-block-start:8px;background:transparent;border:0;border-block-end:1px solid var(--line);color:var(--fg);font:inherit;font-size:16px;letter-spacing:0;text-transform:none;padding-block:8px;outline:none}
 .form input:focus,.form textarea:focus{border-color:var(--fg)}
+.form-err{margin-block:-4px 18px;font-size:13px;line-height:1.5;color:#e0624f}
+.form-err a{color:#25d366;white-space:nowrap}
+.form .btn[disabled]{opacity:.6;cursor:progress}
 .form textarea{resize:vertical}
 .form-done p{color:var(--mute);line-height:1.6;margin-block-end:26px;font-size:15px}
 .modal.full{padding:0;background:rgba(235,235,235,.97)}
@@ -359,7 +361,9 @@ html.static .rv{opacity:1;visibility:visible;clip-path:none;transform:none}
 /* ---------- static page (phones, tablets, reduced motion) ---------- */
 .asm-static{background:#3a373c}
 .st-hero{position:relative;min-height:100svh;overflow:hidden;color:#fff;background:#2b282e}
-.st-hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;opacity:.78;z-index:1}
+.st-hero-media,.st-hero-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 50%;display:block;z-index:1}
+.st-hero-media{opacity:.78}
+.st-hero-media img{opacity:1}
 .st-hero .asm-shade{z-index:2;background:
   linear-gradient(to bottom,rgba(20,18,22,.55),transparent 28%,transparent 58%,rgba(20,18,22,.72)),
   radial-gradient(ellipse 70% 80% at 50% 50%,transparent 40%,rgba(20,18,22,.45) 100%)}
@@ -368,6 +372,12 @@ html.static .rv{opacity:1;visibility:visible;clip-path:none;transform:none}
 .st-hero .hero-h span{animation-delay:calc(.3s + var(--i) * .09s)}
 .st-hero .bg-word{color:rgba(255,255,255,.35);text-shadow:0 2px 18px rgba(0,0,0,.4)}
 .st-hero .bg-word-b{color:rgba(255,255,255,.22)}
+.st-intro{padding:10vh var(--gx) 8vh;background:#fff;color:#141216}
+.st-intro small{color:#8a6a2e}
+.st-intro h2{font-weight:300;font-size:clamp(28px,8.5vw,48px);line-height:1.02;letter-spacing:-.03em;text-transform:uppercase;margin-block:14px 18px;overflow-wrap:anywhere}
+.st-intro h2 span{color:#8f8a95}
+.st-intro p{color:#3f3b44;font-size:15px;line-height:1.6;max-width:34ch}
+html:is([lang=he],[lang=ar]) .st-intro h2{line-height:1.12;font-weight:400}
 .st-card{display:flex;flex-direction:column;border-block-start:1px solid rgba(43,40,46,.14);background:#fff;color:#141216}
 .st-img{aspect-ratio:16/10;overflow:hidden;background:#2b282e}
 .st-img img{width:100%;height:100%;object-fit:cover}
@@ -495,7 +505,9 @@ html.static #smooth-wrapper,html.static #smooth-content,html.static main{overflo
 html.static :is(.tb-in,.ds-in,.ptab-in){zoom:1}
 html.static .ftr{min-height:0;background:linear-gradient(to bottom,#f3f1f4,#ddd8e0);color:var(--fg)}
 html.static .ftr.has-vbg{background:linear-gradient(to bottom,#f3f1f4,#ddd8e0)}
-html.static .vbg{display:none}
+html.static .vbg:not(.vbg-m){display:none}
+/* phones: a VideoBg with staticSrc plays its light mobile cut instead of the desktop loop */
+.vbg-m .vbg-video{transform:none;object-position:50% 100%}
 html.static :is(.feats p,.ds-slide-copy p,.ptab-note,.tb-stats span,.ds-hint){color:var(--mute)}
 html.static :is(.tb,.ds-head,.ptab,.ftr) h2 span{color:var(--silver)}
 html.static .ptab-r{color:var(--fg);border-color:var(--line2)}

@@ -1,8 +1,8 @@
-﻿'use client';
+'use client';
 import { useEffect, useRef, useState } from 'react';
-import { gsap, HOLD, registerZone, ScrollTrigger, useScrollReady, useStaticMode } from '@/lib/scroll';
+import { gsap, HOLD, prefersReducedMotion, registerZone, ScrollTrigger, useScrollReady, useStaticMode } from '@/lib/scroll';
 import { useI18n } from '@/lib/i18n';
-import { ASSEMBLY_SHARE, BRAND, FRAMES, framePath, locate, MODEL, pad, PARTS, SHOWCASE, STAGES, stillOf, TOTAL_G } from '@/lib/site';
+import { ASSEMBLY_SHARE, BRAND, FRAMES, framePath, locate, MOBILE_HERO, MODEL, pad, PARTS, SHOWCASE, STAGES, stillOf, TOTAL_G } from '@/lib/site';
 import Num from './Num';
 import BgType from './BgType';
 import Showcase from './Showcase';
@@ -226,15 +226,51 @@ function AnimatedAssembly({ vh = 1000, covered, onLoadProgress }: Props) {
   );
 }
 
-// Static page (phones, reduced motion): the hero over the assembled watch, then one still per part with its copy. No canvas, no scrubbing.
+/**
+ * Static hero backdrop. Phones/tablets get the portrait assembly clip from MOBILE_HERO (lib/site.ts, ~720x980, 1.5–2.5 MB):
+ * it plays once and stays on the assembled product. Reduced motion or Data Saver get its last frame;
+ * wide screens under reduced motion — and every case while MOBILE_HERO is null (stub media) — keep the 16:9 still.
+ */
+function StaticHeroMedia() {
+  const [still] = useState(() => !MOBILE_HERO || prefersReducedMotion() || !!(navigator as Navigator & { connection?: { saveData?: boolean } }).connection?.saveData);
+  if (still || !MOBILE_HERO) {
+    return (
+      <picture className="st-hero-media">
+        {MOBILE_HERO && <source media="(max-width: 900px)" srcSet={MOBILE_HERO.end} />}
+        <img src={framePath(1280, FRAMES - 1)} alt="" width={1280} height={720} />
+      </picture>
+    );
+  }
+  return (
+    <video
+      className="st-hero-media"
+      src={MOBILE_HERO.src}
+      poster={MOBILE_HERO.poster}
+      autoPlay
+      muted
+      playsInline
+      preload="auto"
+      disablePictureInPicture
+      aria-hidden
+    />
+  );
+}
+
+// Static page (phones, reduced motion): the hero over the assembly clip, then one still per part with its copy. No canvas, no scrubbing.
 function StaticAssembly() {
   const { t } = useI18n();
   return (
     <section id="top" className="asm-static" data-slide="seq">
       <div className="st-hero">
-        <img src={framePath(1280, FRAMES - 1)} alt="" width={1280} height={720} />
+        <StaticHeroMedia />
         <BgType />
         <div className="hero"><Hero /></div>
+      </div>
+      {/* text break so the hero still and the first part still don't run into each other */}
+      <div className="st-intro">
+        <small>{t('st_k')}</small>
+        <h2>{t('st_h1')}<br /><span>{t('st_h2')}</span></h2>
+        <p>{t('st_p').replace('{name}', `${BRAND} ${MODEL}`)}</p>
       </div>
       {PARTS.map((p, i) => (
         <article key={p.n} className="st-card">

@@ -1,4 +1,4 @@
-﻿'use client';
+'use client';
 import { useEffect, useRef } from 'react';
 import { BRAND, MODEL } from '@/lib/site';
 import { prefersReducedMotion } from '@/lib/scroll';

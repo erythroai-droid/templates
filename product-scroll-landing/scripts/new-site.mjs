@@ -33,18 +33,12 @@ replaceFile('package.json', (s) => s.replace(/"name"\s*:\s*"[^"]+"/, `"name": "$
 replaceFile('lib/site.ts', (s) =>
   s
     .replace(/export const BRAND = '[^']*'/, `export const BRAND = '${brand.replace(/'/g, "\\'")}'`)
-    .replace(/export const MODEL = '[^']*'/, `export const MODEL = '${model.replace(/'/g, "\\'")}'`),
+    .replace(/export const MODEL = '[^']*'/, `export const MODEL = '${model.replace(/'/g, "\\'")}'`)
+    // SITE_URL feeds metadataBase / canonical / Open Graph / sitemap; TITLE + DESCRIPTION derive from BRAND MODEL
+    .replace(/\|\| 'https:\/\/[^']+'\)/, `|| '${siteUrl}')`),
 );
 
-replaceFile('app/layout.tsx', (s) =>
-  s
-    .replace(/title:\s*'[^']*'/, `title: '${brand} ${model} — product scroll landing'`)
-    .replace(/description:\s*'[^']*'/, `description: 'Scroll-driven ${brand} ${model} landing: the product assembles itself part by part as you scroll.'`),
-);
-
-replaceFile('app/sitemap.ts', (s) =>
-  s.replace(/'https:\/\/[^']+'/, `'${siteUrl}'`),
-);
+replaceFile('.env.example', (s) => s.replace(/NEXT_PUBLIC_SITE_URL=.*/, `NEXT_PUBLIC_SITE_URL=${siteUrl}`));
 
 replaceFile('public/robots.txt', (s) =>
   s

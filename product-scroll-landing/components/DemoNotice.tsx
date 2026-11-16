@@ -1,27 +1,34 @@
 'use client';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useI18n } from '@/lib/i18n';
-import { DEMO, trackDemo, waLink } from '@/lib/demo';
-import { BRAND, MODEL } from '@/lib/site';
+import { adSource, DEMO, trackDemo, waLink } from '@/lib/demo';
+import { fbTrack } from '@/lib/metaPixel';
 
-type State = 'hidden' | 'open' | 'mini';
+type State = 'open' | 'mini';
+type Trigger = 'scroll' | 'footer' | 'timer' | 'exit' | 'reload';
 const KEY = 'demo-notice';
 
 /**
- * Demo notice: a card ("thanks for viewing, contact us") that opens once per visit —
- * when the footer comes into view, after DEMO.delayMs, or when the mouse heads for the tab bar —
- * and after closing folds into a round WhatsApp button. On a reload in the same visit it opens again right away.
+ * Demo notice. The round WhatsApp button is in the corner from the first second; the card ("thanks for viewing,
+ * contact us") unfolds from it on its own once per visit — after DEMO.delayMs, once the visitor scrolls past the
+ * first screen, when the footer comes into view, or when the mouse heads for the tab bar — and folds back into the
+ * button when closed. On a reload in the same visit it unfolds again right away.
  */
 export default function DemoNotice() {
   const { t, lang } = useI18n();
-  const [state, setState] = useState<State>('hidden');
-  const stateRef = useRef<State>('hidden');
+  const [state, setState] = useState<State>('mini');
+  const stateRef = useRef<State>('mini');
+  const autoDone = useRef(false);   // the one automatic unfold per page view has happened (or the visitor opened it first)
   const touchY = useRef<number | null>(null);
   const openedBy = useRef('');
+  const [src, setSrc] = useState('');   // ad source from the landing URL, appended to the WhatsApp message
+
+  useEffect(() => { setSrc(adSource()); }, []);
 
   const go = useCallback((s: State) => { stateRef.current = s; setState(s); }, []);
-  const open = useCallback((trigger: 'footer' | 'timer' | 'exit' | 'reload') => {
-    if (stateRef.current !== 'hidden') return;
+  const open = useCallback((trigger: Trigger) => {
+    if (autoDone.current || stateRef.current === 'open') return;
+    autoDone.current = true;
     go('open');
     openedBy.current = trigger;
     trackDemo('demo_notice_shown', { trigger });
@@ -33,6 +40,7 @@ export default function DemoNotice() {
     trackDemo('demo_notice_closed', { via });
   }, [go]);
   const reopen = () => {
+    autoDone.current = true;
     go('open');
     openedBy.current = 'button';
     trackDemo('demo_notice_reopened');
@@ -51,6 +59,10 @@ export default function DemoNotice() {
 
     const timer = window.setTimeout(() => open('timer'), DEMO.delayMs);
 
+    // scrolled past the first screen = actually looking at the page
+    const onScroll = () => { if (window.scrollY > window.innerHeight * DEMO.openAfterScreens) open('scroll'); };
+    window.addEventListener('scroll', onScroll, { passive: true });
+
     // reached the footer = has seen the whole page
     let io: IntersectionObserver | undefined;
     const watchFooter = () => {
@@ -66,7 +78,10 @@ export default function DemoNotice() {
     const exit = (e: MouseEvent) => { if (!e.relatedTarget && e.clientY <= 0) open('exit'); };
     document.addEventListener('mouseout', exit);
 
-    return () => { clearTimeout(timer); clearTimeout(late); io?.disconnect(); document.removeEventListener('mouseout', exit); };
+    return () => {
+      clearTimeout(timer); clearTimeout(late); io?.disconnect();
+      window.removeEventListener('scroll', onScroll); document.removeEventListener('mouseout', exit);
+    };
   }, [open, go]);
 
   useEffect(() => {
@@ -96,8 +111,12 @@ export default function DemoNotice() {
         <h3 id="demo-h">{t('demo_h')}</h3>
         <p>{t('demo_p')}</p>
         <div className="demo-act">
-          <a className="demo-wa" href={waLink(t('demo_msg').replace('{name}', `${BRAND} ${MODEL}`))} target="_blank" rel="noopener noreferrer" tabIndex={state === 'open' ? 0 : -1}
-            onClick={() => trackDemo('demo_whatsapp_click', { opened_by: openedBy.current || 'button', lang })}>
+          <a className="demo-wa" href={waLink(t('demo_msg'), src)} target="_blank" rel="noopener noreferrer" tabIndex={state === 'open' ? 0 : -1}
+            onClick={() => {
+              trackDemo('demo_whatsapp_click', { opened_by: openedBy.current || 'button', lang, ...(src ? { source: src } : {}) });
+              fbTrack('Contact', { content_name: 'whatsapp' });
+              fbTrack('Lead', { content_name: 'whatsapp' });
+            }}>
             <WaIcon /> {t('demo_wa')}
           </a>
         </div>

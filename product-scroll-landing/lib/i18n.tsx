@@ -17,15 +17,44 @@ type Ctx = { lang: Lang; dir: 'ltr' | 'rtl'; t: (k: string) => string; setLang: 
 const I18n = createContext<Ctx>({ lang: 'en', dir: 'ltr', t: (k) => D.en[k] ?? k, setLang: () => {} });
 export const useI18n = () => useContext(I18n);
 
+function normalizeLang(value: string | null | undefined): Lang | null {
+  if (!value) return null;
+  const base = value.trim().toLowerCase().split(/[-_]/)[0];
+  if (base === 'iw' || base === 'he') return 'he';
+  if (base === 'en' || base === 'ru' || base === 'ar') return base;
+  return null;
+}
+
+function detectBrowserLang(): Lang | null {
+  if (typeof navigator === 'undefined') return null;
+  const candidates = [...(navigator.languages ?? []), navigator.language].filter(Boolean);
+  for (const raw of candidates) {
+    const matched = normalizeLang(raw);
+    if (matched) return matched;
+  }
+  return null;
+}
+
 export function I18nProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>('en');
 
   useEffect(() => {
     let l: Lang = 'en';
     try {
-      const saved = localStorage.getItem('lang');
-      if (saved === 'en' || saved === 'ru' || saved === 'he' || saved === 'ar') l = saved;   // English by default; only an explicit choice changes it
-    } catch { /* storage unavailable */ }
+      const q = new URLSearchParams(window.location.search);
+      // ?lang=he wins; otherwise an ad campaign named "…_he" / "…_ru" / "…_ar" / "…_en" sets the language,
+      // so Hebrew ads open the RTL version even when the ad link has no lang parameter
+      const urlLang = normalizeLang(q.get('lang')) ?? normalizeLang(q.get('utm_campaign')?.match(/[_-](he|iw|ru|ar|en)$/i)?.[1]);
+      if (urlLang) {
+        l = urlLang;
+        localStorage.setItem('lang', urlLang);
+      } else {
+        const saved = normalizeLang(localStorage.getItem('lang'));
+        l = saved ?? detectBrowserLang() ?? 'en';
+      }
+    } catch {
+      l = detectBrowserLang() ?? 'en';
+    }
     setLangState(l);
   }, []);
 
