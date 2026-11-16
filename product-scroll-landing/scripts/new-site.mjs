@@ -7,7 +7,7 @@
  *   npm run new-site -- acme-x1 "ACME" "X1" https://acme-x1.erythro.ai
  */
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
-import { dirname, join, resolve as resolvePath } from 'node:path';
+import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -73,15 +73,4 @@ replaceFile('public/llms.txt', () => `# ${brand} ${model}
 console.log(`\nDone. Brand=${brand} Model=${model} URL=${siteUrl}`);
 console.log('Still edit i18n/*.txt for copy, then: npm run i18n');
 
-// pre-push hook: every push (= Vercel deploy) runs `npm run preflight` first
-try {
-  const { execFileSync } = await import('node:child_process');
-  const top = execFileSync('git', ['rev-parse', '--show-toplevel'], { cwd: root, encoding: 'utf8' }).trim();
-  // only this project's own repo — never re-point the hooks of a parent repo the folder happens to sit in
-  if (resolvePath(top).toLowerCase() !== resolvePath(root).toLowerCase()) throw new Error('not repo root');
-  execFileSync('git', ['config', 'core.hooksPath', '.githooks'], { cwd: root, stdio: 'ignore' });
-  console.log('git pre-push hook on: push runs npm run preflight');
-} catch {
-  console.log('After `git init`: npm run hooks  (push will run npm run preflight)');
-}
-console.log('Before every deploy: npm run preflight  (see SITE.md §9)');
+console.log('Before deploying: npm run preflight  (on demand only, see SITE.md §9)');

@@ -1,6 +1,0 @@
-#!/bin/sh
-# Blocks a push (= a Vercel deploy) while preflight reports errors. Bypass only on purpose: git push --no-verify
-cd "$(git rev-parse --show-toplevel)" || exit 1
-[ -f package.json ] || cd product-scroll-landing 2>/dev/null
-echo "preflight: checking the site against the template before push..."
-npm run --silent preflight || { echo; echo "Push blocked: fix the ✖ items above (or git push --no-verify if you really mean it)."; exit 1; }

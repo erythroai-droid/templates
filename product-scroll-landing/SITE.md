@@ -17,10 +17,10 @@ Typical time from clone to an ad-ready URL: 3–5 hours, most of it media.
 | Sharing | Canonical, Open Graph, Twitter card, generated 1200×630 preview | `app/layout.tsx`, `app/opengraph-image.tsx` |
 | Agents / SEO | `robots.txt`, `llms.txt`, `sitemap.xml` | `public/`, `app/sitemap.ts` |
 | Ad footage | Headless scroll recording (desktop or phone) → .webm | `npm run record-demo` |
-| Pre-deploy check | Compares the project with the template and this checklist; blocks `git push` on errors | `npm run preflight`, `.githooks/pre-push` |
+| Pre-deploy check | Compares the project with the template and this checklist; runs only when you call it | `npm run preflight` |
 
-> **Rule: no deploy without a green preflight.** `npm run preflight` must end with no ✖ before the first push to Vercel
-> and before every production push. `new-site` turns on the pre-push hook, so a push with ✖ is refused.
+> **Rule: no deploy without a green preflight.** Run `npm run preflight` by hand before the first push to Vercel and before
+> every production push; it must end with no ✖. Nothing runs it automatically (no hooks, not in the build).
 > Every ⚠ is either fixed or consciously accepted. Details: §9.
 
 ## 1. Scaffold
@@ -125,7 +125,7 @@ npm run preflight -- --report                              # also saves prefligh
 ```
 
 The template is taken from GitHub (`main`); `--template <dir>` or `TEMPLATE_DIR` compares with a local copy.
-Result: **✖** = deploy blocked (exit 1, pre-push hook refuses), **⚠** = fix or accept on purpose, **·** = manual step.
+Result: **✖** = not ready to deploy (exit 1), **⚠** = fix or accept on purpose, **·** = manual step.
 
 | Section | What it catches |
 |---|---|

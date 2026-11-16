@@ -26,7 +26,7 @@ npm run build && npm start
 | Env (demo card, GA4, Pixel, lead webhook) | [`.env.example`](.env.example) |
 | Lead form → n8n → Telegram | `scripts/deploy-n8n-lead.py` |
 | Ad footage (.webm) | `npm run record-demo -- --mobile --lang he` |
-| **Pre-deploy check vs template** | `npm run preflight` (pre-push hook blocks a push with errors) |
+| **Pre-deploy check vs template** | `npm run preflight` (on demand, before each deploy) |
 | Agent files | `public/robots.txt`, `public/llms.txt`, `app/sitemap.ts` |
 
 Full client checklist (media, ads/UTM, events, handover, smoke test): [`SITE.md`](SITE.md).

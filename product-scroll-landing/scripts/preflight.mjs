@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * Pre-deploy check of a client site against the product-scroll-landing template.
- * Mandatory before the first push to Vercel and before every production push (the pre-push hook runs it).
+ * Run it by hand before the first push to Vercel and before every production push. Nothing runs it automatically.
  *
  *   npm run preflight                          full check (template from GitHub, tsc)
  *   npm run preflight -- --build               + npm run build
