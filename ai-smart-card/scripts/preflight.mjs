@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 /**
- * Pre-deploy check of a client site against the product-scroll-landing template.
+ * Pre-deploy check of a client site against the AI Smart Card (ai-smart-card) template.
  * Run it by hand before a deploy. Nothing runs it automatically, and it never blocks anything: every finding is a
  * recommendation — what to fix is up to you. Exit code is always 0.
  *
  *   npm run preflight                          full check (template from GitHub, tsc)
  *   npm run preflight -- --build               + npm run build
  *   npm run preflight -- --url https://<slug>.erythro.ai   + live checks of a deployed / preview URL
- *   npm run preflight -- --template C:\dev\templates\product-scroll-landing   compare with a local template copy
+ *   npm run preflight -- --template C:\dev\templates\ai-smart-card   compare with a local template copy
  *   npm run preflight -- --report              also write preflight-report.md
  *
  * ✖ important recommendation (likely visible to visitors / ads), ⚠ nice to fix, · info / manual steps.
@@ -23,7 +23,7 @@ const argv = process.argv.slice(2).filter((a) => a !== '--');
 const flag = (k) => argv.includes(`--${k}`);
 const opt = (k) => { const i = argv.indexOf(`--${k}`); return i > -1 ? argv[i + 1] : undefined; };
 const TEMPLATE_REPO = 'https://github.com/erythroai-droid/templates.git';
-const TEMPLATE_DIR = 'product-scroll-landing';
+const TEMPLATE_DIR = 'ai-smart-card';
 
 const P = (...a) => join(root, ...a);
 const read = (p) => (existsSync(p) ? readFileSync(p, 'utf8').replace(/^\uFEFF/, '').replace(/\r\n/g, '\n') : null);
@@ -93,11 +93,11 @@ const walk = (dir, base = dir, acc = []) => {
 // =====================================================================
 const site = await loadSite();
 const pkg = JSON.parse(read(P('package.json')));
-const isTemplate = pkg.name === 'product-scroll-landing';
+const isTemplate = pkg.name === 'ai-smart-card';
 
 // ---------- 1. identity ----------
 section('1. Проект и адрес');
-if (isTemplate) err('package.json name = product-scroll-landing', 'npm run new-site -- <slug> "<Brand>" "<Model>" https://<slug>.erythro.ai');
+if (isTemplate) err('package.json name = ai-smart-card', 'npm run new-site -- <slug> "<Brand>" "<Model>" https://<slug>.erythro.ai');
 else ok(`package: ${pkg.name}`);
 if (site.BRAND === 'ACME' || site.MODEL === 'X1') err(`BRAND/MODEL ещё шаблонные (${site.BRAND} ${site.MODEL})`, 'npm run new-site или lib/site.ts');
 else ok(`бренд: ${site.BRAND} ${site.MODEL}`);
@@ -238,7 +238,7 @@ if (!/\d{10,}/.test(px)) warn('Meta Pixel без значения по умол�
 section('7. Сверка с шаблоном');
 const tpl = isTemplate ? null : getTemplate();
 if (isTemplate) info('это сам шаблон — сверка пропущена');
-else if (!tpl) warn('шаблон недоступен (нет сети / --template) — сверка файлов пропущена', '--template C:\\dev\\templates\\product-scroll-landing');
+else if (!tpl) warn('шаблон недоступен (нет сети / --template) — сверка файлов пропущена', '--template C:\\dev\\templates\\ai-smart-card');
 else {
   info(`шаблон: ${tpl.label}`);
   const skip = (f) => /^(public\/frames\/|public\/video\/|lib\/dict\.ts$|i18n\/|README\.md$|SITE\.md$|package-lock\.json$|next-env\.d\.ts$|preflight-report\.md$)/.test(f);
@@ -247,7 +247,7 @@ else {
   const allowedMissing = /^app\/(opengraph|twitter)-image\.tsx$/;
   const missCode = missing.filter((f) => /\.(tsx?|mjs|py|css)$/.test(f) && !(og && allowedMissing.test(f)));
   const missOther = missing.filter((f) => !missCode.includes(f) && !(og && allowedMissing.test(f)));
-  if (missCode.length) err(`нет файлов из шаблона: ${missCode.join(', ')}`, tpl.cleanup ? `npx degit erythroai-droid/templates/product-scroll-landing/<file> <file>  (или --template <локальная копия>)` : `скопировать из ${tpl.dir}`);
+  if (missCode.length) err(`нет файлов из шаблона: ${missCode.join(', ')}`, tpl.cleanup ? `npx degit erythroai-droid/templates/ai-smart-card/<file> <file>  (или --template <локальная копия>)` : `скопировать из ${tpl.dir}`);
   if (missOther.length) warn(`нет файлов из шаблона: ${missOther.join(', ')}`);
   if (!missing.length || (!missCode.length && !missOther.length)) ok(`все ${tFiles.length} файлов шаблона на месте`);
 

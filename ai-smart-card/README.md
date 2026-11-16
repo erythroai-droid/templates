@@ -1,4 +1,4 @@
-# product-scroll-landing
+# AI Smart Card (`ai-smart-card`)
 
 Next.js 15 + React 19 + GSAP scroll-assembled product landing, production- and ad-ready (pattern from [ORA 60A](https://ora60a.erythro.ai)).
 

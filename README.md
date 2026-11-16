@@ -4,18 +4,18 @@ Reusable site starters for fast client deploys. Each folder is a self-contained 
 
 | Template | Use when |
 |---|---|
-| [`product-scroll-landing`](./product-scroll-landing) | Scroll-assembled product landing (ORA 60A pattern): GSAP pin/scrub frames, phone hero clip, i18n EN/RU/HE/AR + RTL, WhatsApp demo card with ad-source tagging, lead form → n8n, Vercel Analytics + GA4 + Meta Pixel, OG cards, Vercel + `*.erythro.ai` |
+| [**AI Smart Card**](./ai-smart-card) (`ai-smart-card`) | Scroll-assembled product landing (ORA 60A pattern): GSAP pin/scrub frames, phone hero clip, i18n EN/RU/HE/AR + RTL, WhatsApp demo card with ad-source tagging, lead form → n8n, Vercel Analytics + GA4 + Meta Pixel, OG cards, Vercel + `*.erythro.ai` |
 
 ## Start a new site from a template
 
 ```bash
 # option A — degit one folder
-npx degit erythroai-droid/templates/product-scroll-landing my-client-site
+npx degit erythroai-droid/templates/ai-smart-card my-client-site
 
 # option B — sparse clone
 git clone --filter=blob:none --sparse https://github.com/erythroai-droid/templates.git
 cd templates
-git sparse-checkout set product-scroll-landing
+git sparse-checkout set ai-smart-card
 ```
 
 Then inside the template folder:

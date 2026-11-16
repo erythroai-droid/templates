@@ -1,4 +1,4 @@
-# Client site checklist — product-scroll-landing
+# Client site checklist — AI Smart Card (`ai-smart-card`)
 
 Use this when spinning a new project from the template. Reference production: [ORA 60A](https://ora60a.erythro.ai).
 Typical time from clone to an ad-ready URL: 3–5 hours, most of it media.
@@ -26,7 +26,7 @@ Typical time from clone to an ad-ready URL: 3–5 hours, most of it media.
 ## 1. Scaffold
 
 ```bash
-npx degit erythroai-droid/templates/product-scroll-landing <repo>
+npx degit erythroai-droid/templates/ai-smart-card <repo>
 cd <repo>
 npm install
 npm run new-site -- <slug> "<Brand>" "<Model>" https://<slug>.erythro.ai
@@ -129,7 +129,7 @@ Result — all of it advisory: **✖** = important recommendation (likely visibl
 
 | Section | What it catches |
 |---|---|
-| 1. Project | slug / brand / `SITE_URL` still `product-scroll-landing` / `ACME X1` / `example.erythro.ai` |
+| 1. Project | slug / brand / `SITE_URL` still `ai-smart-card` / `ACME X1` / `example.erythro.ai` |
 | 2. Media | `STUB_MEDIA`, frame count ≠ `FRAMES` in each size, `PARTS` / `STAGES` / `DESIGN_SLIDES` out of range or ORA timing left in, missing phone hero clip or > 2.5 MB, code pointing at files that don't exist, OG `.jpg` + `.tsx` conflict |
 | 3. Git | media ignored or not committed, `Video/` / `public/video` in `.gitignore`, files > 20 MB in git, uncommitted changes |
 | 4. Texts | missing keys per language, stale `lib/dict.ts`, `ACME` / `hello@example.com` / `Model demo` left in copy |
