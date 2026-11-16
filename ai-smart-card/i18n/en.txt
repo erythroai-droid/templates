@@ -140,3 +140,7 @@ demo_p = This is a demo project. To discuss a website for your brand, get in tou
 demo_wa = Chat on WhatsApp
 demo_open = Contact us
 demo_msg = Hi! I'd like to discuss a website for my brand. Reaching out after checking out the {name} demo.
+demo_strip = Demo · Erythro.ai
+demo_cta = I want a site like this
+demo_msg = Hi! I saw the {name} demo and I'd love a site like this for my business.
+demo_more = View more work

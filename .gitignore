@@ -9,3 +9,6 @@ Thumbs.db
 ai-smart-card/.claude/*
 !ai-smart-card/.claude/skills/
 !ai-smart-card/.claude/skills/**
+scroll-film/.claude/*
+!scroll-film/.claude/skills/
+!scroll-film/.claude/skills/**

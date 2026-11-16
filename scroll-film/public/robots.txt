@@ -1,0 +1,39 @@
+# Search and user-triggered fetches: yes. Model training: no (client can opt in).
+User-Agent: *
+Allow: /
+Disallow: /api/
+
+User-Agent: OAI-SearchBot
+Allow: /
+Disallow: /api/
+
+User-Agent: ChatGPT-User
+Allow: /
+Disallow: /api/
+
+User-Agent: Claude-SearchBot
+Allow: /
+Disallow: /api/
+
+User-Agent: Claude-User
+Allow: /
+Disallow: /api/
+
+User-Agent: PerplexityBot
+Allow: /
+Disallow: /api/
+
+User-Agent: GPTBot
+Disallow: /
+
+User-Agent: ClaudeBot
+Disallow: /
+
+User-Agent: Google-Extended
+Disallow: /
+
+User-Agent: Applebot-Extended
+Disallow: /
+
+Host: https://example.erythro.ai
+Sitemap: https://example.erythro.ai/sitemap.xml

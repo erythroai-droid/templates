@@ -586,3 +586,75 @@ html.static .ds-slide-copy h3{color:var(--fg)}
   .bg-type{transform:none}
   .bg-word-a,.bg-word-b,.bg-gauge{transform:none}
 }
+
+/* ======== studio frame for ad traffic: demo strip + portfolio link + WhatsApp CTA (StudioBar) ======== */
+/* ---------- studio frame: demo strip on top + "I want this site" bar at the bottom (ad traffic) ---------- */
+:root{--strip:0px;--sbar:0px}
+html.has-studio{--strip:28px;--sbar:76px}
+.studio-strip{position:fixed;z-index:31;inset-block-start:0;inset-inline:0;height:var(--strip);display:flex;align-items:center;justify-content:center;gap:9px;
+  background:#c9a063;color:#17110b;font:600 11px/1 var(--font-main),sans-serif;letter-spacing:.28em;text-transform:uppercase;padding-inline-start:.28em}
+.studio-strip i{width:7px;height:7px;border-radius:50%;background:#17110b;animation:stripDot 1.6s ease-in-out infinite}
+@keyframes stripDot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+html:is([lang=he],[lang=ar]) .studio-strip{font-size:12px;padding-inline-start:0}
+/* the header sits under the strip */
+html.has-studio .hdr{inset-block-start:var(--strip)}
+
+.studio-bar{position:fixed;z-index:45;inset-inline:0;bottom:0;display:flex;justify-content:center;pointer-events:none;
+  padding:10px var(--gx) calc(10px + env(safe-area-inset-bottom));
+  background:linear-gradient(to top,rgba(8,6,5,.92) 0%,rgba(8,6,5,.75) 60%,rgba(8,6,5,0) 100%)}
+.studio-cta{pointer-events:auto;display:inline-flex;align-items:center;justify-content:center;gap:12px;height:54px;padding-inline:28px;border-radius:40px;
+  background:#c9a063;color:#17110b;font:600 13px/1 var(--font-main),sans-serif;letter-spacing:.16em;text-transform:uppercase;
+  box-shadow:0 10px 30px rgba(0,0,0,.45),0 0 0 0 rgba(201,160,99,.5);animation:ctaPulse 2.6s ease-in-out infinite;transition:background .25s,transform .25s}
+.studio-cta:hover{background:#dcb87e;transform:translateY(-2px)}
+.studio-cta svg{flex:none}
+@keyframes ctaPulse{0%,100%{box-shadow:0 10px 30px rgba(0,0,0,.45),0 0 0 0 rgba(201,160,99,.45)}50%{box-shadow:0 10px 30px rgba(0,0,0,.45),0 0 0 10px rgba(201,160,99,0)}}
+html:is([lang=he],[lang=ar]) .studio-cta{font-size:15px;letter-spacing:0}
+
+/* floating buttons ride above the bar; the page end is not hidden under it */
+html.has-studio .ai-fab{inset-block-end:calc(var(--sbar) + 14px)}
+html.has-studio .ai{inset-block-end:calc(var(--sbar) + 14px)}
+html.has-studio .totop{inset-block-end:calc(var(--sbar) + 78px)}
+html.has-studio .ctc{padding-block-end:calc(30px + var(--sbar))}
+html.has-studio .scn-hint{bottom:calc(var(--sbar) + 2vh)}
+
+@media (max-width:900px){
+  html.has-studio{--strip:26px;--sbar:74px}
+  .studio-strip{font-size:10px;letter-spacing:.24em}
+  .studio-cta{width:100%;max-width:520px}
+  html.has-studio .ai-fab{inset-block-end:calc(var(--sbar) + 10px)}
+  html.has-studio .totop{inset-block-end:calc(var(--sbar) + 72px)}
+  html.has-studio .scn{padding-block-end:calc(12vh + var(--sbar) * .6)}
+}
+@media (prefers-reduced-motion:reduce){.studio-strip i,.studio-cta{animation:none}}
+
+
+/* ---------- studio strip: demo tag at the start, portfolio link at the end ---------- */
+.studio-strip{justify-content:space-between;padding-inline:var(--gx)}
+.studio-tag{display:inline-flex;align-items:center;gap:9px;white-space:nowrap}
+.studio-more{display:inline-flex;align-items:center;gap:6px;white-space:nowrap;color:#17110b;letter-spacing:.14em;
+  padding-block:4px;border-block-end:1px solid rgba(23,17,11,.55);transition:border-color .2s,opacity .2s}
+.studio-more:hover{border-color:#17110b}
+html:is([lang=he],[lang=ar]) .studio-more{letter-spacing:0}
+
+/* ---------- phones: the CTA is one solid full-width plate, edge to edge ---------- */
+@media (max-width:900px){
+  html.has-studio{--strip:30px;--sbar:58px}
+  .studio-strip{font-size:9.5px;letter-spacing:.14em;gap:10px}
+  .studio-tag{gap:7px}
+  .studio-more{letter-spacing:.06em}
+  .studio-bar{padding:0;background:none}
+  .studio-cta{width:100%;max-width:none;height:calc(58px + env(safe-area-inset-bottom));padding:0 20px env(safe-area-inset-bottom);
+    border-radius:0;font-size:14px;letter-spacing:.14em;animation:none;box-shadow:0 -10px 30px rgba(0,0,0,.45)}
+  .studio-cta:hover{transform:none}
+  html:is([lang=he],[lang=ar]) .studio-cta{font-size:16px;letter-spacing:0}
+  html.has-studio .ctc{padding-block-end:calc(24px + var(--sbar) + env(safe-area-inset-bottom))}
+}
+
+html:is([lang=he],[lang=ar]) .studio-strip{font-size:12px;padding-inline:var(--gx)}   /* the start side is the right edge in RTL: keep its gutter */
+/* portfolio link: no underline — text + arrow, the arrow nudges on hover */
+.studio-more,.studio-more:hover{border-block-end:0;padding-block:0}
+.studio-more .arr{transition:transform .25s}
+.studio-more:hover .arr{transform:translateX(3px)}
+[dir=rtl] .studio-more:hover .arr{transform:scaleX(-1) translateX(3px)}
+html.has-studio .ftr{padding-block-end:calc(30px + var(--sbar) + env(safe-area-inset-bottom))}
+html.has-studio.static .hdr{inset-block-start:var(--strip)}

@@ -221,14 +221,14 @@ for (const [name, re] of [['<Analytics />', /<Analytics\s*\/>/], ['<SpeedInsight
   if (!re.test(layout)) err(`layout.tsx: нет ${name}`);
 }
 const pageSrc = walk(root).filter((f) => /^(app|components)\/.*\.tsx$/.test(f)).map((f) => read(P(f))).join('\n');
-if (!/<DemoNotice/.test(pageSrc)) err('DemoNotice нигде не рендерится — нет WhatsApp-кнопки');
+if (!/<(DemoNotice|StudioBar)/.test(pageSrc)) err('ни StudioBar, ни DemoNotice не рендерятся — нет WhatsApp-кнопки');
 if (!existsSync(P('app', 'api', 'lead', 'route.ts'))) err('нет app/api/lead/route.ts — форма никуда не отправляет');
 if (!/\/api\/lead/.test(read(P('components', 'Header.tsx')) ?? '')) err('форма в Header.tsx не шлёт на /api/lead');
 const demo = read(P('lib', 'demo.ts')) ?? '';
 if (!/adSource/.test(demo)) err('lib/demo.ts без adSource() — в WhatsApp не придёт источник рекламы');
 const phone = demo.match(/phone:\s*'([^']*)'/)?.[1] ?? '';
 if (phone.replace(/\D/g, '').length < 9) err(`DEMO.phone пустой/некорректный: "${phone}"`);
-else ok(`WhatsApp ${phone}, DemoNotice, форма → /api/lead, Vercel Analytics, Speed Insights, GA4, Meta Pixel`);
+else ok(`WhatsApp ${phone}, StudioBar/DemoNotice, форма → /api/lead, Vercel Analytics, Speed Insights, GA4, Meta Pixel`);
 const ga = read(P('lib', 'ga.ts')) ?? '';
 const px = read(P('lib', 'metaPixel.ts')) ?? '';
 if (!/G-[A-Z0-9]+/.test(ga)) warn('GA_ID без значения по умолчанию — GA работает только при NEXT_PUBLIC_GA_ID');

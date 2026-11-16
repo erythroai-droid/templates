@@ -8,3 +8,8 @@ type Fbq = (cmd: 'track' | 'trackCustom', name: string, data?: Record<string, st
 export const fbTrack = (name: string, data?: Record<string, string>) => {
   try { (window as unknown as { fbq?: Fbq }).fbq?.('track', name, data); } catch { /* blocked */ }
 };
+
+/** Custom event (e.g. 'EngagedVisit') — build a Custom Conversion on it in Events Manager to optimise ads for it. */
+export const fbTrackCustom = (name: string, data?: Record<string, string>) => {
+  try { (window as unknown as { fbq?: Fbq }).fbq?.('trackCustom', name, data); } catch { /* blocked */ }
+};
